@@ -6,6 +6,10 @@ class MovieNotesController {
         const { title, description, tags, rating } = request.body;
         const { user_id } = request.params;
 
+        if(rating < 1 || rating > 5) {
+            throw new AppError("Escolha um número de 1 a 5 para avaliar o filme.")
+        }
+
         const [ movie_note_id ] = await knex("movie_notes").insert({
             title,
             description,
